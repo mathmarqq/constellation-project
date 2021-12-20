@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+Application steps:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Board
+- List Card
+- Card List
+    - Generic Card
+- Add a card (feature)
+    - Add a card button
+    - Add a card form
+- Edit a card (feature)
+    - Generic Text Input
+    - Generic dialog
+    - Edit Card dialog
+- Implement drag and drop (feature)
+    - Install lib and use
+- Edit Column Name (feature)
+    - Generic Input
+    - Change Card List title
+- Confirmation Modal
+- Delete card (feature)
+    - Change Edit Card dialog
+- Delete column (feature)
+    - Change Card List
+- Add label to card (feature)
+    - Change Edit Card dialog
 
-## Available Scripts
 
-In the project directory, you can run:
+Project Specs and Requirements:
+- User should be able to add a Card to a column by clicking “Add another card”
+- When you add another card, you are able to add in Description Text
+- User can edit the text in a Card by hovering over the Card and clicking the Edit pencil
+icon (this can just be text)
+- When editing a card (Diag. 2, below) the background goes dark and you can edit,
+save, and delete the card.
+- User can rearrange the order of the Cards in a Column
+- User can also move a Card from one column to another
+- User can also edit the Names of the Columns by clicking on the Name
+- User can delete cards or entire columns (but not without confirmation first)
+- User should be able to label the tickets with green-yellow-red priority flags/labels
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Bonus points if the following is implemented:
+- User should be able to search and filter tickets by name
+- User should be able to filter tickets based on priority label
+- Code has formatting and/or Linting configuration
+- App is deployed via heroku, netlify, etc.
+- README is well written and formatted
