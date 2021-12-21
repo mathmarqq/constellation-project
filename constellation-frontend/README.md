@@ -2,7 +2,7 @@ Application steps:
 
 -   Board
 -   List Card
--   Card List
+-   Board Card
     -   Generic Card
 -   Add a card (feature)
     -   Add a card button

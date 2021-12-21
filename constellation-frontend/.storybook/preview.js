@@ -1,3 +1,6 @@
+import React from 'react'
+import styles from 'styles/index.module.scss'
+
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -7,3 +10,11 @@ export const parameters = {
         },
     },
 }
+
+export const decorators = [
+    (Story) => (
+        <div className={styles.defaultTheme}>
+            <Story />
+        </div>
+    ),
+]

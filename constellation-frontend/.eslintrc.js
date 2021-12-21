@@ -54,5 +54,8 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn',
         '@typescript-eslint/no-empty-function': 'off',
+        'no-restricted-exports': 'off',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
     },
 }

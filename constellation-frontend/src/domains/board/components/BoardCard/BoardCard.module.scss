@@ -1,0 +1,72 @@
+.card {
+    position: relative;
+    padding: 0.3rem 0.5rem;
+    max-width: 15rem;
+    min-height: 1.5rem;
+
+    & > span {
+        display: block;
+    }
+
+    &:hover {
+        filter: brightness(90%);
+    }
+
+    .hoveredElement {
+        opacity: 0;
+        transition: 0.2s;
+    }
+
+    &:hover .hoveredElement {
+        opacity: 1;
+    }
+
+    .editButton {
+        position: absolute;
+        display: flex;
+        right: 0.5rem;
+        border: none;
+        background: none;
+        padding: 0;
+
+        .hideInformation {
+            visibility: hidden;
+        }
+
+        .editIcon {
+            cursor: pointer;
+        }
+    }
+
+    .label {
+        height: 0.5rem;
+        width: 2.5rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.2rem;
+
+        & > span {
+            visibility: hidden;
+        }
+    }
+
+    .lowCriticity {
+        background-color: var(--criticity-level-1);
+    }
+
+    .mediumCriticity {
+        background-color: var(--criticity-level-2);
+    }
+
+    .highCriticity {
+        background-color: var(--criticity-level-3);
+    }
+
+    .noneLabel {
+        display: none;
+    }
+
+    .description {
+        font-size: var(--typography-body-2);
+        cursor: default;
+    }
+}

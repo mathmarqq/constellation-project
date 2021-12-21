@@ -1,0 +1,27 @@
+.defaultTheme {
+    --primary-main-contrast: #172b4d;
+
+    --card-background: #ffffff;
+
+    --criticity-level-1: #00ac46;
+    --criticity-level-2: #fdc500;
+    --criticity-level-3: #fd8c00;
+
+    --elevation-z1: 0 1px 0 #091e4240;
+
+    --typography-h1: 6rem;
+    --typography-h2: 3.75rem;
+    --typography-h3: 3rem;
+    --typography-h4: 2.25rem;
+    --typography-h5: 1.5rem;
+    --typography-h6: 1.25rem;
+    --typography-subtitle-1: 1rem;
+    --typography-subtitle-2: 0.875rem;
+    --typography-body-1: 1rem;
+    --typography-body-2: 0.875rem;
+    --typography-button: 1.5rem;
+    --typography-caption: 0.813rem;
+    --typography-overline: 0.625rem;
+
+    color: var(--primary-main-contrast);
+}
