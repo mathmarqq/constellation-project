@@ -1,0 +1,15 @@
+.button {
+    background-color: var(--button-background-primary);
+    color: var(--button-background-primary-contrast);
+    font-size: var(--typography-button);
+    border-radius: 0.1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    transition: 0.5s;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        filter: brightness(80%);
+    }
+}

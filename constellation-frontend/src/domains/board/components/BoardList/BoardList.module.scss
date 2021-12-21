@@ -3,6 +3,7 @@
     border-radius: 0.2rem;
     width: fit-content;
     padding: 0.5rem;
+    padding-bottom: 0;
 
     .header,
     .footer {
@@ -14,6 +15,43 @@
 
         &:last-child {
             margin-bottom: 0;
+        }
+    }
+
+    .formCard {
+        padding: 0.3rem 0.5rem;
+    }
+
+    .footer {
+        display: flex;
+        align-items: center;
+
+        .addButton {
+            border: none;
+            opacity: 60%;
+            width: 100%;
+            text-align: start;
+            padding: 0.5rem;
+            cursor: pointer;
+
+            &:hover {
+                filter: brightness(90%);
+            }
+        }
+
+        .saveButton {
+            margin-right: 0.5rem;
+        }
+
+        .closeButton {
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: fit-content;
+
+            .hideInformation {
+                display: none;
+            }
         }
     }
 }

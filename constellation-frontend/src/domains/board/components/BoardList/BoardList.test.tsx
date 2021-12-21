@@ -1,7 +1,7 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { List } from 'domains/board/models/List'
 import React from 'react'
-import { render, screen } from 'utils/testUtils'
+import { fireEvent, render, screen } from 'utils/testUtils'
 import BoardList from './BoardList'
 
 test('When BoardCard renders should show list title', () => {
@@ -74,4 +74,61 @@ test('Given a list has more than one card When BoardCard renders should show all
     render(<BoardList list={list} />)
 
     expect(screen.getAllByTestId('card')).toHaveLength(3)
+})
+
+test('When user click in add cart should show a textarea and action buttons', () => {
+    const list: List = {
+        id: 1,
+        title: 'Title',
+        cards: [],
+    }
+
+    render(<BoardList list={list} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
+
+    expect(screen.getByPlaceholderText('Enter a description for this card…')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Save card' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Cancel Form' })).toBeInTheDocument()
+    expect(screen.getByText('Cancel Form')).toBeInTheDocument()
+})
+
+test('When user click in cancel form should hide the textarea and action buttons', () => {
+    const list: List = {
+        id: 1,
+        title: 'Title',
+        cards: [],
+    }
+
+    render(<BoardList list={list} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel Form' }))
+
+    expect(
+        screen.queryByPlaceholderText('Enter a description for this card…')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Save card' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Cancel Form' })).not.toBeInTheDocument()
+    expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
+})
+
+test('When user click in save card should hide the textarea and action buttons', () => {
+    const list: List = {
+        id: 1,
+        title: 'Title',
+        cards: [],
+    }
+
+    render(<BoardList list={list} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Save card' }))
+
+    expect(
+        screen.queryByPlaceholderText('Enter a description for this card…')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Save card' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Cancel Form' })).not.toBeInTheDocument()
+    expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
 })

@@ -4,9 +4,9 @@ Application steps:
 -   [x] List Card
 -   [x] Board Card
     -   [x] Generic Card
--   Add a card (feature)
-    -   Add a card button
-    -   Add a card form
+-   [x] Add a card (feature)
+    -   [x] Add a card button
+    -   [x] Add a card form
 -   Edit a card (feature)
     -   Generic Text Input
     -   Generic dialog

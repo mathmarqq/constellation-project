@@ -57,5 +57,6 @@ module.exports = {
         'no-restricted-exports': 'off',
         'no-shadow': 'off',
         '@typescript-eslint/no-shadow': ['error'],
+        'react/button-has-type': 'off',
     },
 }
