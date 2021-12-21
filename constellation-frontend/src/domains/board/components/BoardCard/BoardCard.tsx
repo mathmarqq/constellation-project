@@ -12,9 +12,10 @@ type LabelDetails = {
 
 type BoardCardProps = {
     card: CardType
+    className?: string
 }
 
-function BoardCard({ card }: BoardCardProps): ReactElement {
+function BoardCard({ card, className }: BoardCardProps): ReactElement {
     function getLabelDetails(label?: CriticityLevel): LabelDetails {
         switch (label) {
             case CriticityLevel.LOW:
@@ -42,7 +43,7 @@ function BoardCard({ card }: BoardCardProps): ReactElement {
     const labelDetails = getLabelDetails(card.label)
 
     return (
-        <Card className={styles.card}>
+        <Card className={`${styles.card} ${className}`}>
             <button
                 className={`${styles.hoveredElement} ${styles.editButton}`}
                 type="button"
@@ -61,6 +62,10 @@ function BoardCard({ card }: BoardCardProps): ReactElement {
             <span className={styles.description}>{card.description}</span>
         </Card>
     )
+}
+
+BoardCard.defaultProps = {
+    className: '',
 }
 
 export default BoardCard

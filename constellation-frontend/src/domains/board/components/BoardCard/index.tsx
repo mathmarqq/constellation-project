@@ -1,1 +1,1 @@
-export * from './BoardCard'
+export { default } from './BoardCard'

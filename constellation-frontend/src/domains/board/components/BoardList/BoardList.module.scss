@@ -1,0 +1,19 @@
+.list {
+    background-color: var(--secondary-main);
+    border-radius: 0.2rem;
+    width: fit-content;
+    padding: 0.5rem;
+
+    .header,
+    .footer {
+        padding: 0.5rem 0;
+    }
+
+    .card {
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

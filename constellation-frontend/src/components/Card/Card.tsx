@@ -7,7 +7,11 @@ type CardProps = {
 }
 
 function Card({ children, className }: CardProps): ReactElement {
-    return <div className={`${styles.card} ${className}`}>{children}</div>
+    return (
+        <div className={`${styles.card} ${className}`} data-testid="card">
+            {children}
+        </div>
+    )
 }
 
 Card.defaultProps = {

@@ -1,9 +1,9 @@
 Application steps:
 
 -   Board
--   List Card
--   Board Card
-    -   Generic Card
+-   [x] List Card
+-   [x] Board Card
+    -   [x] Generic Card
 -   Add a card (feature)
     -   Add a card button
     -   Add a card form
