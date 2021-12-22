@@ -4,7 +4,7 @@ import React from 'react'
 import { fireEvent, render, screen } from 'utils/testUtils'
 import BoardList from './BoardList'
 
-test('When BoardCard renders should show list title', () => {
+test('When BoardList renders should show list title', () => {
     const list: List = {
         id: 1,
         title: 'Title',
@@ -16,7 +16,7 @@ test('When BoardCard renders should show list title', () => {
     expect(screen.getByText('Title')).toBeInTheDocument()
 })
 
-test('Given a list does not have a card When BoardCard renders should does not show a card', () => {
+test('Given a list does not have a card When BoardList renders should does not show a card', () => {
     const list: List = {
         id: 1,
         title: 'Title',
@@ -28,7 +28,7 @@ test('Given a list does not have a card When BoardCard renders should does not s
     expect(screen.queryByTestId('card')).not.toBeInTheDocument()
 })
 
-test('Given a list has a card When BoardCard renders should show a card with correct values', () => {
+test('Given a list has a card When BoardList renders should show a card with correct values', () => {
     const list: List = {
         id: 1,
         title: 'Title',
@@ -48,7 +48,7 @@ test('Given a list has a card When BoardCard renders should show a card with cor
     expect(screen.getByText('Low Criticity')).toBeInTheDocument()
 })
 
-test('Given a list has more than one card When BoardCard renders should show all cards', () => {
+test('Given a list has more than one card When BoardList renders should show all cards', () => {
     const list: List = {
         id: 1,
         title: 'Title',

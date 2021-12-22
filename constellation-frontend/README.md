@@ -7,10 +7,10 @@ Application steps:
 -   [x] Add a card (feature)
     -   [x] Add a card button
     -   [x] Add a card form
--   Edit a card (feature)
-    -   Generic Text Input
-    -   Generic dialog
-    -   Edit Card dialog
+-   [x] Edit a card (feature)
+    -   [x] Generic Text Input
+    -   [x] Generic dialog
+    -   [x] Edit Card dialog
 -   Implement drag and drop (feature)
     -   Install lib and use
 -   Edit Column Name (feature)
@@ -23,6 +23,7 @@ Application steps:
     -   Change Card List
 -   Add label to card (feature)
     -   Change Edit Card dialog
+    -   Change Create Form
 
 Project Specs and Requirements:
 

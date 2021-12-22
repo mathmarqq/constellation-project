@@ -1,0 +1,27 @@
+.label {
+    display: block;
+    max-height: 0.5rem;
+    max-width: 2.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.2rem;
+
+    & > span {
+        visibility: hidden;
+    }
+}
+
+.lowCriticity {
+    background-color: var(--criticity-level-1);
+}
+
+.mediumCriticity {
+    background-color: var(--criticity-level-2);
+}
+
+.highCriticity {
+    background-color: var(--criticity-level-3);
+}
+
+.noneLabel {
+    display: none;
+}

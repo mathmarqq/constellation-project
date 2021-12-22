@@ -15,7 +15,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
     const [isCreatingCard, setIsCreatingCard] = useState(false)
     const [cardDescription, setCardDescription] = useState('')
 
-    const handleTextareChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCardDescription(event.target.value)
     }
 
@@ -46,7 +46,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
                         <Textarea
                             placeholder="Enter a description for this card…"
                             value={cardDescription}
-                            onChange={handleTextareChange}
+                            onChange={handleTextareaChange}
                         />
                     </Card>
                 ) : null}
