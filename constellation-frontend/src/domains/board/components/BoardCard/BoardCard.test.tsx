@@ -33,22 +33,15 @@ test('Given card without a label When BoardCard renders should does not show car
     expect(screen.queryByTitle('High Criticity')).not.toBeInTheDocument()
 })
 
-test.each([
-    [CriticityLevel.LOW, 'Low Criticity'],
-    [CriticityLevel.MEDIUM, 'Medium Criticity'],
-    [CriticityLevel.HIGH, 'High Criticity'],
-])(
-    'Given card with a label When BoardCard renders should have label description',
-    (criticityLevel, labelDescription) => {
-        const card: Card = {
-            id: 1,
-            description: 'description',
-            label: criticityLevel,
-        }
-
-        render(<BoardCard card={card} />)
-
-        expect(screen.getByTitle(labelDescription)).toBeInTheDocument()
-        expect(screen.getByText(labelDescription)).toBeInTheDocument()
+test('Given card with a label When BoardCard renders should have label description', () => {
+    const card: Card = {
+        id: 1,
+        description: 'description',
+        label: CriticityLevel.LOW,
     }
-)
+
+    render(<BoardCard card={card} />)
+
+    expect(screen.getByTitle('Low Criticity')).toBeInTheDocument()
+    expect(screen.getByText('Low Criticity')).toBeInTheDocument()
+})
