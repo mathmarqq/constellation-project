@@ -1,6 +1,6 @@
 Application steps:
 
--   Board
+-   [x] Board
 -   [x] List Card
 -   [x] Board Card
     -   [x] Generic Card
