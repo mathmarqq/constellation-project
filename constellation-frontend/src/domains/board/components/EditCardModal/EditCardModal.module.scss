@@ -1,16 +1,13 @@
 .modal {
-    padding: 5rem;
+    position: absolute;
     width: 15rem;
 
     .card {
         position: relative;
         padding: 0.3rem 0.5rem;
         max-width: 15rem;
+        height: inherit;
         min-height: 1.5rem;
-
-        .input {
-            height: 7rem;
-        }
     }
 
     .actionButtons {

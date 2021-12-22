@@ -1,5 +1,4 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
-import { Card } from 'domains/board/models/Card'
 import React from 'react'
 import { fireEvent, render, screen } from 'utils/testUtils'
 import EditCardModal, { EditCardModalProps } from './EditCardModal'
@@ -44,7 +43,7 @@ test('When EditCardModal renders should show the label', () => {
     expect(screen.getByTitle('Low Criticity')).toBeInTheDocument()
 })
 
-test('When user click on save button should call onSave callback', () => {
+test('When user clicks on save button should call onSave callback', () => {
     const { modalProps, onSaveSpy } = setup()
 
     render(<EditCardModal {...modalProps} />)
@@ -54,7 +53,7 @@ test('When user click on save button should call onSave callback', () => {
     expect(onSaveSpy).toBeCalledTimes(1)
 })
 
-test('When user click on delete button should call onSave callback', () => {
+test('When user clicks on delete button should call onDelete callback', () => {
     const { modalProps, onDeleteSpy } = setup()
 
     render(<EditCardModal {...modalProps} />)
@@ -64,7 +63,7 @@ test('When user click on delete button should call onSave callback', () => {
     expect(onDeleteSpy).toBeCalledTimes(1)
 })
 
-test('When user click outside modal should call onClose callback', () => {
+test('When user clicks outside of modal should call onClose callback', () => {
     const { modalProps, onCloseSpy } = setup()
 
     render(<EditCardModal {...modalProps} />)

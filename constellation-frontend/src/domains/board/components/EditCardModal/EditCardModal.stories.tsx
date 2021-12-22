@@ -21,6 +21,7 @@ Main.args = {
         description: 'This is a Todo list with items that can be marked off',
         label: CriticityLevel.LOW,
     },
+    style: { top: '58px', left: '24px' },
     onSave: () => {},
     onDelete: () => {},
     onClose: () => {},

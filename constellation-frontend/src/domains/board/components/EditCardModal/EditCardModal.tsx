@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { CSSProperties, ReactElement, useState } from 'react'
 import Modal from 'components/Modal'
 import Card from 'components/Card'
 import Textarea from 'components/Textarea'
@@ -9,12 +9,19 @@ import styles from './EditCardModal.module.scss'
 
 type EditCardModalProps = {
     card: CardType
+    style?: CSSProperties
     onSave: () => void
     onClose: () => void
     onDelete: () => void
 }
 
-function EditCardModal({ card, onSave, onDelete, onClose }: EditCardModalProps): ReactElement {
+function EditCardModal({
+    card,
+    style,
+    onSave,
+    onDelete,
+    onClose,
+}: EditCardModalProps): ReactElement {
     const [cardDescription, setCardDescription] = useState(card.description)
 
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,14 +37,13 @@ function EditCardModal({ card, onSave, onDelete, onClose }: EditCardModalProps):
     }
 
     return (
-        <Modal onClose={onClose} className={styles.modal}>
+        <Modal onClose={onClose} className={styles.modal} style={style}>
             <Card className={styles.card}>
                 <CardLabel label={card.label} />
                 <Textarea
                     placeholder="Enter a description for this card…"
                     value={cardDescription}
                     onChange={handleTextareaChange}
-                    className={styles.input}
                 />
             </Card>
             <div className={styles.actionButtons}>
@@ -50,6 +56,10 @@ function EditCardModal({ card, onSave, onDelete, onClose }: EditCardModalProps):
             </div>
         </Modal>
     )
+}
+
+EditCardModal.defaultProps = {
+    style: undefined,
 }
 
 export default EditCardModal

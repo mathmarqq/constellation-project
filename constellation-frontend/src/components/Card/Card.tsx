@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { forwardRef, ReactNode } from 'react'
 import styles from './Card.module.scss'
 
 type CardProps = {
@@ -6,13 +6,13 @@ type CardProps = {
     className?: string
 }
 
-function Card({ children, className }: CardProps): ReactElement {
+const Card = forwardRef<HTMLDivElement, CardProps>(({ children, className }: CardProps, ref) => {
     return (
-        <div className={`${styles.card} ${className}`} data-testid="card">
+        <div className={`${styles.card} ${className}`} data-testid="card" ref={ref}>
             {children}
         </div>
     )
-}
+})
 
 Card.defaultProps = {
     className: '',

@@ -76,7 +76,7 @@ test('Given a list has more than one card When BoardList renders should show all
     expect(screen.getAllByTestId('card')).toHaveLength(3)
 })
 
-test('When user click in add cart should show a textarea and action buttons', () => {
+test('When user clicks in add cart should show a textarea and action buttons', () => {
     const list: List = {
         id: 1,
         title: 'Title',
@@ -93,7 +93,7 @@ test('When user click in add cart should show a textarea and action buttons', ()
     expect(screen.getByText('Cancel Form')).toBeInTheDocument()
 })
 
-test('When user click in cancel form should hide the textarea and action buttons', () => {
+test('When user clicks in cancel form should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
         title: 'Title',
@@ -113,7 +113,7 @@ test('When user click in cancel form should hide the textarea and action buttons
     expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
 })
 
-test('When user click in save card should hide the textarea and action buttons', () => {
+test('When user clicks in save card should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
         title: 'Title',
