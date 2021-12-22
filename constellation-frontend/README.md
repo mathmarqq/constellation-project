@@ -16,7 +16,7 @@ Application steps:
 -   Edit Column Name (feature)
     -   Generic Input
     -   Change Card List title
--   Confirmation Modal
+-   [x] Confirmation Modal
 -   Delete card (feature)
     -   Change Edit Card dialog
 -   Delete column (feature)

@@ -1,0 +1,29 @@
+.modalBackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    padding: 2rem;
+    background-color: var(--modal-background);
+    width: 60%;
+    max-width: 30rem;
+    border-radius: 0.3rem;
+
+    h2 {
+        font-size: var(--typography-h4);
+    }
+
+    p {
+        padding: 1rem 0;
+    }
+
+    .actionButtons {
+        text-align: end;
+
+        button:last-child {
+            margin-left: 1rem;
+        }
+    }
+}
