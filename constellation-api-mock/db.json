@@ -1,0 +1,24 @@
+{
+  "lists": [
+    { "id": 1, "index": 1, "title": "Title" },
+    { "id": 2, "index": 2, "title": "Title 2" },
+    { "id": 3, "index": 3, "title": "Title 3" },
+    { "id": 4, "index": 4, "title": "Title 4" }
+  ],
+  "cards": [
+      { "id": 1, "index": 1, "description": "This is a Todo list with items that can be marked off", "label": 0, "listId": 1 },
+      { "id": 2, "index": 2, "description": "This is a Todo list with items that can be marked off", "label": 1, "listId": 1 },
+      { "id": 3, "index": 3, "description": "This is a Todo list with items that can be marked off", "label": 2, "listId": 1 },
+      { "id": 4, "index": 4, "description": "This is a Todo list with items that can be marked off", "label": 0, "listId": 1 },
+
+      { "id": 5, "index": 1, "description": "This is a Todo list with items that can be marked off", "label": 1, "listId": 2 },
+      { "id": 6, "index": 2, "description": "This is a Todo list with items that can be marked off", "label": 1, "listId": 2 },
+      { "id": 7, "index": 3, "description": "This is a Todo list with items that can be marked off", "listId": 2 },
+      { "id": 8, "index": 4, "description": "This is a Todo list with items that can be marked off", "label": 2, "listId": 2 },
+
+      { "id": 9, "index": 1, "description": "This is a Todo list with items that can be marked off", "label": 2, "listId": 3 },
+      { "id": 10, "index": 2, "description": "This is a Todo list with items that can be marked off", "label": 3, "listId": 3 },
+
+      { "id": 11, "index": 1, "description": "This is a Todo list with items that can be marked off", "label": 1, "listId": 4 }
+  ]
+}
