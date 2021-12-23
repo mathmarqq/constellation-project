@@ -18,6 +18,7 @@ export const Main = Template.bind({})
 Main.args = {
     card: {
         id: 1,
+        index: 1,
         description: 'This is a Todo list with items that can be marked off',
         label: CriticityLevel.LOW,
     },

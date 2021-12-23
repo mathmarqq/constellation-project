@@ -1,16 +1,32 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { Card } from 'domains/board/models/Card'
 import React from 'react'
+import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { fireEvent, render, screen, within } from 'utils/testUtils'
-import BoardCard from './BoardCard'
+import BoardCard, { BoardCardProps } from './BoardCard'
+
+function renderComponent(props: BoardCardProps) {
+    render(
+        <DragDropContext onDragEnd={() => {}}>
+            <Droppable droppableId="1_list" type="QUOTE" ignoreContainerClipping={false}>
+                {(dropProvided: DroppableProvided) => (
+                    <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
+                        <BoardCard {...props} />
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+    )
+}
 
 test('When BoardCard renders should show card description', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
 
     expect(screen.getByText('description')).toBeInTheDocument()
 })
@@ -18,10 +34,11 @@ test('When BoardCard renders should show card description', () => {
 test('Given card without a label When BoardCard renders should does not show card label', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
 
     expect(screen.queryByText('Low Criticity')).not.toBeInTheDocument()
     expect(screen.queryByTitle('Low Criticity')).not.toBeInTheDocument()
@@ -36,11 +53,12 @@ test('Given card without a label When BoardCard renders should does not show car
 test('Given card with a label When BoardCard renders should have label description', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
 
     expect(screen.getByTitle('Low Criticity')).toBeInTheDocument()
     expect(screen.getByText('Low Criticity')).toBeInTheDocument()
@@ -49,11 +67,12 @@ test('Given card with a label When BoardCard renders should have label descripti
 test('When user clicks on editIcon should show the editModal with correct values', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
 
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
@@ -70,11 +89,12 @@ test('When user clicks on editIcon should show the editModal with correct values
 test('When user clicks on save button should hide modal', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
     fireEvent.click(screen.getByRole('button', { name: 'Save' }))
@@ -85,11 +105,12 @@ test('When user clicks on save button should hide modal', () => {
 test('When user clicks on delete button should hide modal', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
@@ -100,11 +121,12 @@ test('When user clicks on delete button should hide modal', () => {
 test('When user clicks outside of modal should hide modal', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
     fireEvent.click(screen.getByTestId('dialog-backdrop'))
@@ -115,11 +137,12 @@ test('When user clicks outside of modal should hide modal', () => {
 test('When user press Esc should hide modal', () => {
     const card: Card = {
         id: 1,
+        index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
     }
 
-    render(<BoardCard card={card} />)
+    renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
     fireEvent.keyDown(document, {

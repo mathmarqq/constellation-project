@@ -4,6 +4,7 @@ import BoardCard from 'domains/board/components/BoardCard'
 import Textarea from 'components/Textarea'
 import Card from 'components/Card'
 import Button from 'components/Button'
+import { Draggable, DraggableProvided, Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import styles from './BoardList.module.scss'
 import CloseIcon from '../../../../components/Icons/CloseIcon/CloseIcon'
 
@@ -35,50 +36,70 @@ function BoardList({ list }: BoardListProps): ReactElement {
     }
 
     return (
-        <div className={styles.list}>
-            <div className={styles.header}>
-                <h2>{list.title}</h2>
-            </div>
-            <div>
-                {renderCards()}
-                {isCreatingCard ? (
-                    <Card className={styles.formCard}>
-                        <Textarea
-                            placeholder="Enter a description for this card…"
-                            value={cardDescription}
-                            onChange={handleTextareaChange}
-                        />
-                    </Card>
-                ) : null}
-            </div>
-            <div className={styles.footer}>
-                {isCreatingCard ? (
-                    <>
-                        <Button type="button" onClick={saveCard} className={styles.saveButton}>
-                            Save card
-                        </Button>
-                        <button
-                            className={styles.closeButton}
-                            type="button"
-                            title="Cancel Form"
-                            aria-label="Cancel Form"
-                            onClick={cancelForm}
-                        >
-                            <span className={styles.hideInformation}>Cancel Form</span>
-                            <CloseIcon className={`${styles.closeIcon}`} aria-hidden="true" />
-                        </button>
-                    </>
-                ) : (
-                    <button
-                        className={styles.addButton}
-                        type="button"
-                        onClick={() => setIsCreatingCard(true)}
+        <Draggable draggableId={`${list.id}_list`} index={list.index}>
+            {(provided: DraggableProvided) => (
+                <div ref={provided.innerRef} className={styles.list} {...provided.draggableProps}>
+                    <div className={styles.header}>
+                        <h2 {...provided.dragHandleProps}>{list.title}</h2>
+                    </div>
+                    <Droppable
+                        droppableId={`${list.id}_list`}
+                        type="QUOTE"
+                        ignoreContainerClipping={false}
                     >
-                        Add a card
-                    </button>
-                )}
-            </div>
-        </div>
+                        {(dropProvided: DroppableProvided) => (
+                            <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
+                                {renderCards()}
+                                {dropProvided.placeholder}
+                                {isCreatingCard ? (
+                                    <Card className={styles.formCard}>
+                                        <Textarea
+                                            placeholder="Enter a description for this card…"
+                                            value={cardDescription}
+                                            onChange={handleTextareaChange}
+                                        />
+                                    </Card>
+                                ) : null}
+                            </div>
+                        )}
+                    </Droppable>
+                    <div className={styles.footer}>
+                        {isCreatingCard ? (
+                            <>
+                                <Button
+                                    type="button"
+                                    onClick={saveCard}
+                                    className={styles.saveButton}
+                                >
+                                    Save card
+                                </Button>
+                                <button
+                                    className={styles.closeButton}
+                                    type="button"
+                                    title="Cancel Form"
+                                    aria-label="Cancel Form"
+                                    onClick={cancelForm}
+                                >
+                                    <span className={styles.hideInformation}>Cancel Form</span>
+                                    <CloseIcon
+                                        className={`${styles.closeIcon}`}
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            </>
+                        ) : (
+                            <button
+                                className={styles.addButton}
+                                type="button"
+                                onClick={() => setIsCreatingCard(true)}
+                            >
+                                Add a card
+                            </button>
+                        )}
+                    </div>
+                </div>
+            )}
+        </Draggable>
     )
 }
 

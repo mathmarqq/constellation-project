@@ -1,17 +1,33 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { List } from 'domains/board/models/List'
 import React from 'react'
+import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { fireEvent, render, screen } from 'utils/testUtils'
-import BoardList from './BoardList'
+import BoardList, { BoardListProps } from './BoardList'
+
+function renderComponent(props: BoardListProps) {
+    render(
+        <DragDropContext onDragEnd={() => {}}>
+            <Droppable droppableId="board" type="LIST" ignoreContainerClipping={false}>
+                {(dropProvided: DroppableProvided) => (
+                    <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
+                        <BoardList {...props} />
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+    )
+}
 
 test('When BoardList renders should show list title', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     expect(screen.getByText('Title')).toBeInTheDocument()
 })
@@ -19,11 +35,12 @@ test('When BoardList renders should show list title', () => {
 test('Given a list does not have a card When BoardList renders should does not show a card', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     expect(screen.queryByTestId('card')).not.toBeInTheDocument()
 })
@@ -31,17 +48,19 @@ test('Given a list does not have a card When BoardList renders should does not s
 test('Given a list has a card When BoardList renders should show a card with correct values', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [
             {
                 id: 1,
+                index: 1,
                 description: 'description',
                 label: CriticityLevel.LOW,
             },
         ],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     expect(screen.getByText('description')).toBeInTheDocument()
     expect(screen.getByTitle('Low Criticity')).toBeInTheDocument()
@@ -51,27 +70,31 @@ test('Given a list has a card When BoardList renders should show a card with cor
 test('Given a list has more than one card When BoardList renders should show all cards', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [
             {
                 id: 1,
+                index: 1,
                 description: 'description',
                 label: CriticityLevel.LOW,
             },
             {
                 id: 2,
+                index: 2,
                 description: 'description 2',
                 label: CriticityLevel.LOW,
             },
             {
                 id: 3,
+                index: 3,
                 description: 'description 3',
                 label: CriticityLevel.LOW,
             },
         ],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     expect(screen.getAllByTestId('card')).toHaveLength(3)
 })
@@ -79,11 +102,12 @@ test('Given a list has more than one card When BoardList renders should show all
 test('When user clicks in add cart should show a textarea and action buttons', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
 
@@ -96,11 +120,12 @@ test('When user clicks in add cart should show a textarea and action buttons', (
 test('When user clicks in cancel form should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
     fireEvent.click(screen.getByRole('button', { name: 'Cancel Form' }))
@@ -116,11 +141,12 @@ test('When user clicks in cancel form should hide the textarea and action button
 test('When user clicks in save card should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
+        index: 1,
         title: 'Title',
         cards: [],
     }
 
-    render(<BoardList list={list} />)
+    renderComponent({ list })
 
     fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
     fireEvent.click(screen.getByRole('button', { name: 'Save card' }))

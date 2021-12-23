@@ -6,13 +6,15 @@ type CardProps = {
     className?: string
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(({ children, className }: CardProps, ref) => {
-    return (
-        <div className={`${styles.card} ${className}`} data-testid="card" ref={ref}>
-            {children}
-        </div>
-    )
-})
+const Card = forwardRef<HTMLDivElement, CardProps>(
+    ({ children, className, ...props }: CardProps, ref) => {
+        return (
+            <div className={`${styles.card} ${className}`} data-testid="card" ref={ref} {...props}>
+                {children}
+            </div>
+        )
+    }
+)
 
 Card.defaultProps = {
     className: '',

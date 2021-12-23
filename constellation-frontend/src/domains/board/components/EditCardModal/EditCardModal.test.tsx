@@ -11,6 +11,7 @@ function setup() {
     const modalProps: EditCardModalProps = {
         card: {
             id: 1,
+            index: 1,
             description: 'description',
             label: CriticityLevel.LOW,
         },

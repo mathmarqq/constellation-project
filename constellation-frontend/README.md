@@ -11,8 +11,8 @@ Application steps:
     -   [x] Generic Text Input
     -   [x] Generic dialog
     -   [x] Edit Card dialog
--   Implement drag and drop (feature)
-    -   Install lib and use
+-   [x] Implement drag and drop (feature)
+    -   [x] Install lib and use
 -   Edit Column Name (feature)
     -   Generic Input
     -   Change Card List title
