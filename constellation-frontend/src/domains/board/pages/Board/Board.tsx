@@ -1,125 +1,18 @@
-import React, { ReactElement, useState } from 'react'
-import { Board as BoardType } from 'domains/board/models/Board'
-import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
+import React, { ReactElement, useEffect, useState } from 'react'
 import BoardList from 'domains/board/components/BoardList'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
+import { getLists } from 'infra'
+import { List } from 'domains/board/models/List'
 import styles from './Board.module.scss'
 
-const boardFromBackend: BoardType = {
-    id: 1,
-    title: 'Task Management Board',
-    lists: [
-        {
-            id: 1,
-            index: 1,
-            title: 'Title',
-            cards: [
-                {
-                    id: 1,
-                    index: 1,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.LOW,
-                },
-                {
-                    id: 2,
-                    index: 2,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.MEDIUM,
-                },
-                {
-                    id: 3,
-                    index: 3,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.HIGH,
-                },
-                {
-                    id: 4,
-                    index: 4,
-                    description: 'description',
-                },
-            ],
-        },
-        {
-            id: 2,
-            index: 2,
-            title: 'Title',
-            cards: [
-                {
-                    id: 5,
-                    index: 1,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.LOW,
-                },
-                {
-                    id: 6,
-                    index: 2,
-                    description: 'description',
-                },
-            ],
-        },
-        {
-            id: 3,
-            index: 3,
-            title: 'Title',
-            cards: [
-                {
-                    id: 7,
-                    index: 1,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.LOW,
-                },
-                {
-                    id: 8,
-                    index: 2,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.MEDIUM,
-                },
-                {
-                    id: 9,
-                    index: 3,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.HIGH,
-                },
-                {
-                    id: 10,
-                    index: 4,
-                    description: 'description',
-                },
-                {
-                    id: 11,
-                    index: 5,
-                    description: 'description',
-                },
-                {
-                    id: 12,
-                    index: 6,
-                    description: 'description',
-                },
-            ],
-        },
-        {
-            id: 4,
-            index: 4,
-            title: 'Title',
-            cards: [
-                {
-                    id: 13,
-                    index: 1,
-                    description: 'This is a Todo list with items that can be marked off',
-                    label: CriticityLevel.LOW,
-                },
-                {
-                    id: 14,
-                    index: 2,
-                    description: 'description',
-                },
-            ],
-        },
-    ],
-}
-
 function Board(): ReactElement {
-    const [board] = useState(boardFromBackend)
+    const [lists, setLists] = useState<List[]>([])
+
+    useEffect(() => {
+        getLists().then((fetchedLists: List[]) => {
+            setLists(fetchedLists)
+        })
+    }, [setLists])
 
     const onDragEnd = () => {
         // const { type, destination, source, draggableId } = result
@@ -152,10 +45,10 @@ function Board(): ReactElement {
                         className={styles.board}
                     >
                         <div className={styles.header}>
-                            <h1>{board.title}</h1>
+                            <h1>Task Management Board</h1>
                         </div>
                         <div className={styles.listWrapper}>
-                            {board.lists.map((list) => (
+                            {lists.map((list) => (
                                 <BoardList key={list.id} list={list} />
                             ))}
                             {provided.placeholder}
