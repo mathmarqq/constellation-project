@@ -13,9 +13,9 @@ Application steps:
     -   [x] Edit Card dialog
 -   [x] Implement drag and drop (feature)
     -   [x] Install lib and use
--   Edit Column Name (feature)
-    -   Generic Input
-    -   Change Card List title
+-   [x] Edit Column Name (feature)
+    -   [x] Generic Input
+    -   [x] Change Card List title
 -   [x] Confirmation Modal
 -   [x] Delete card (feature)
     -   [x] Change Edit Card dialog
@@ -51,6 +51,7 @@ Todo list:
 
 -   Make edit list accessible
 -   Fix timeout to focus input
+-   Cover implementionDetails about api calls in tests
 
 Instructions to run api:
 

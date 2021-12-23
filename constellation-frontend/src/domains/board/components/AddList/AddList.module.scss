@@ -1,0 +1,40 @@
+.wrapper {
+    background-color: var(--secondary-main);
+    border-radius: 0.2rem;
+    height: fit-content;
+    width: fit-content;
+    min-width: 15rem;
+    padding: 0.5rem;
+
+    .addButton {
+        border: none;
+        opacity: 60%;
+        width: 100%;
+        text-align: start;
+        padding: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(80%);
+        }
+    }
+
+    .actionButtons {
+        margin-top: 0.5rem;
+
+        .closeButton {
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: fit-content;
+
+            .hideInformation {
+                display: none;
+            }
+        }
+
+        .saveButton {
+            margin-right: 0.5rem;
+        }
+    }
+}

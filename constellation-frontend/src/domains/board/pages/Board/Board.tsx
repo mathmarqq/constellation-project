@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import BoardList from 'domains/board/components/BoardList'
+import AddList from 'domains/board/components/AddList'
 import {
     DragDropContext,
     DraggableLocation,
@@ -63,6 +64,14 @@ function Board(): ReactElement {
         }
     }
 
+    const getLastListIndex = (): number => {
+        if (lists.length === 0) {
+            return 0
+        }
+
+        return lists.sort((a, b) => b.index - a.index)[0].index + 1
+    }
+
     return (
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable
@@ -86,6 +95,7 @@ function Board(): ReactElement {
                                 .map((list) => (
                                     <BoardList key={list.id} list={list} />
                                 ))}
+                            <AddList listIndex={getLastListIndex()} />
                             {provided.placeholder}
                         </div>
                     </div>

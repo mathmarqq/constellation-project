@@ -106,7 +106,7 @@ test('Given a list has more than one card When BoardList renders should show all
     expect(screen.getAllByTestId('card')).toHaveLength(3)
 })
 
-test('When user clicks on add cart should show a textarea and action buttons', () => {
+test('When user clicks on add card should show a textarea and action buttons', () => {
     const list: List = {
         id: 1,
         index: 1,
