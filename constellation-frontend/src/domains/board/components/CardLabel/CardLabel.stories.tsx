@@ -8,6 +8,11 @@ import CardLabel, { CardLabelProps } from './CardLabel'
 export default {
     title: 'Components/Board/Label',
     component: CardLabel,
+    argTypes: {
+        label: {
+            control: { type: 'number' },
+        },
+    },
 } as Meta
 
 const Template: Story<CardLabelProps> = (args: CardLabelProps) => <CardLabel {...args} />
