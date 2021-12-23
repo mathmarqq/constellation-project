@@ -1,62 +1,60 @@
-Application steps:
+# Getting Started with Create React App
 
--   [x] Board
--   [x] List Card
--   [x] Board Card
-    -   [x] Generic Card
--   [x] Add a card (feature)
-    -   [x] Add a card button
-    -   [x] Add a card form
--   [x] Edit a card (feature)
-    -   [x] Generic Text Input
-    -   [x] Generic dialog
-    -   [x] Edit Card dialog
--   [x] Implement drag and drop (feature)
-    -   [x] Install lib and use
--   [x] Edit Column Name (feature)
-    -   [x] Generic Input
-    -   [x] Change Card List title
--   [x] Confirmation Modal
--   [x] Delete card (feature)
-    -   [x] Change Edit Card dialog
--   [x] Delete column (feature)
-    -   [x] Change Card List
--   Add label to card (feature)
-    -   Change Edit Card dialog
-    -   Change Create Form
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Project Specs and Requirements:
+## Available Scripts
 
--   User should be able to add a Card to a column by clicking “Add another card”
--   When you add another card, you are able to add in Description Text
--   User can edit the text in a Card by hovering over the Card and clicking the Edit pencil
-    icon (this can just be text)
--   When editing a card (Diag. 2, below) the background goes dark and you can edit,
-    save, and delete the card.
--   User can rearrange the order of the Cards in a Column
--   User can also move a Card from one column to another
--   User can also edit the Names of the Columns by clicking on the Name
--   User can delete cards or entire columns (but not without confirmation first)
--   User should be able to label the tickets with green-yellow-red priority flags/labels
+In the project directory, you can run:
 
-Bonus points if the following is implemented:
+### `npm start`
 
--   User should be able to search and filter tickets by name
--   User should be able to filter tickets based on priority label
--   Code has formatting and/or Linting configuration
--   App is deployed via heroku, netlify, etc.
--   README is well written and formatted
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Todo list:
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
--   Make edit list accessible
--   Fix the timeout to focus input
--   Cover implemention details of api calls in tests
--   Improve my theme scheme
--   Create tests with cypress (I did not have time)
--   Improve mocks in storybook
+### `npm test`
 
-Instructions to run api:
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-cd constellation-api-mock
-npm start
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run lint`
+
+This command will verify if your files are according to eslint config.
+
+### `npm run format`
+
+This command will format your files based on prettier config.
+
+### `npm run storybook`
+
+Runs the storybook in the development mode.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm run build-storybook`
+
+Buil storybook to be deployed.
+
+### `npm run chromatic`
+
+Run visual regression tests
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
