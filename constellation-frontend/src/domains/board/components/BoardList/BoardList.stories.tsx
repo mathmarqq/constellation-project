@@ -24,74 +24,81 @@ export default {
             </DragDropContext>
         ),
     ],
+    parameters: {
+        mockData: [
+            {
+                url: 'http://localhost:3000/cards/1',
+                method: 'PUT',
+                status: 200,
+            },
+            {
+                url: 'http://localhost:3000/cards',
+                method: 'POST',
+                status: 200,
+            },
+            {
+                url: 'http://localhost:3000/cards/1',
+                method: 'DELETE',
+                status: 200,
+            },
+            {
+                url: 'http://localhost:3000/lists/1',
+                method: 'PUT',
+                status: 200,
+            },
+            {
+                url: 'http://localhost:3000/lists/1',
+                method: 'DELETE',
+                status: 200,
+            },
+        ],
+    },
 } as Meta
 
 const Template: Story<BoardListProps> = (args: BoardListProps) => <BoardList {...args} />
 
-export const Main = Template.bind({})
-Main.args = {
+const buildCards = (numberOfCards: number) => {
+    const cards = []
+
+    for (let i = 0; i < numberOfCards; i += 1) {
+        cards.push({
+            id: i,
+            index: i,
+            description: 'This is a Todo list with items that can be marked off',
+            label: CriticityLevel.LOW,
+            listId: 1,
+        })
+    }
+
+    return cards
+}
+
+export const WithoutCards = Template.bind({})
+WithoutCards.args = {
     list: {
         id: 1,
         index: 1,
         title: 'Title',
-        cards: [
-            {
-                id: 1,
-                index: 1,
-                description: 'This is a Todo list with items that can be marked off',
-                label: CriticityLevel.LOW,
-                listId: 1,
-            },
-            {
-                id: 2,
-                index: 2,
-                description: 'This is a Todo list with items that can be marked off',
-                label: CriticityLevel.MEDIUM,
-                listId: 1,
-            },
-            {
-                id: 3,
-                index: 3,
-                description: 'This is a Todo list with items that can be marked off',
-                label: CriticityLevel.HIGH,
-                listId: 1,
-            },
-            {
-                id: 4,
-                index: 4,
-                description: 'description',
-                listId: 1,
-            },
-        ],
+        cards: [],
     },
 }
 
-Main.parameters = {
-    mockData: [
-        {
-            url: 'http://localhost:3000/cards/1',
-            method: 'PUT',
-            status: 200,
-        },
-        {
-            url: 'http://localhost:3000/cards',
-            method: 'POST',
-            status: 200,
-        },
-        {
-            url: 'http://localhost:3000/cards/1',
-            method: 'DELETE',
-            status: 200,
-        },
-        {
-            url: 'http://localhost:3000/lists/1',
-            method: 'PUT',
-            status: 200,
-        },
-        {
-            url: 'http://localhost:3000/lists/1',
-            method: 'DELETE',
-            status: 200,
-        },
-    ],
+export const WithManyCards = Template.bind({})
+WithManyCards.args = {
+    list: {
+        id: 1,
+        index: 1,
+        title: 'Title',
+        cards: buildCards(5),
+    },
+}
+
+export const WithScroll = Template.bind({})
+WithScroll.args = {
+    list: {
+        id: 1,
+        index: 1,
+        title: 'Title',
+        cards: buildCards(30),
+    },
 }

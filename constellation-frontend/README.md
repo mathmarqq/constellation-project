@@ -54,7 +54,7 @@ Todo list:
 -   Cover implementionDetails about api calls in tests
 -   Improve my theme scheme
 -   Put visual regression tests in git hooks/pipleine
--   Put chromatic key in enviroments
+-   Create tests with cypress (I did not have time)
 
 Instructions to run api:
 
