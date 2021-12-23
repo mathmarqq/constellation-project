@@ -53,6 +53,8 @@ Todo list:
 -   Fix timeout to focus input
 -   Cover implementionDetails about api calls in tests
 -   Improve my theme scheme
+-   Put visual regression tests in git hooks/pipleine
+-   Put chromatic key in enviroments
 
 Instructions to run api:
 

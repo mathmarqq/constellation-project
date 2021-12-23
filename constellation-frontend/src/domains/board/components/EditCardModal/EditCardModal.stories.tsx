@@ -11,7 +11,7 @@ export default {
     component: EditCardModal,
     decorators: [withMock],
     parameters: {
-        chromatic: { delay: 300 },
+        chromatic: { delay: 2000 },
     },
 } as Meta
 
