@@ -17,8 +17,8 @@ Application steps:
     -   Generic Input
     -   Change Card List title
 -   [x] Confirmation Modal
--   Delete card (feature)
-    -   Change Edit Card dialog
+-   [x] Delete card (feature)
+    -   [x] Change Edit Card dialog
 -   Delete column (feature)
     -   Change Card List
 -   Add label to card (feature)

@@ -102,7 +102,8 @@ test('When user clicks on save button should hide modal', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })
 
-test('When user clicks on delete button should hide modal', () => {
+test(`Given user is delleting a card When user clicks on continue 
+    button inside confirmation modal should close modal`, () => {
     const card: Card = {
         id: 1,
         index: 1,
@@ -112,8 +113,9 @@ test('When user clicks on delete button should hide modal', () => {
 
     renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
-
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 })

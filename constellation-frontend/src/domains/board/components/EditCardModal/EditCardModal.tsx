@@ -5,6 +5,8 @@ import Textarea from 'components/Textarea'
 import Button from 'components/Button'
 import CardLabel from 'domains/board/components/CardLabel'
 import { Card as CardType } from 'domains/board/models/Card'
+import ConfirmationModal from 'components/ConfirmationModal'
+import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import styles from './EditCardModal.module.scss'
 
 type EditCardModalProps = {
@@ -13,6 +15,14 @@ type EditCardModalProps = {
     onSave: () => void
     onClose: () => void
     onDelete: () => void
+}
+const confirmationModalProps: ConfirmationModalProps = {
+    title: 'Delete Card',
+    description: 'Do you really want to delete this record?',
+    continueButtonText: 'Continue',
+    closeButtonText: 'Close',
+    onContinue: () => {},
+    onClose: () => {},
 }
 
 function EditCardModal({
@@ -23,6 +33,7 @@ function EditCardModal({
     onClose,
 }: EditCardModalProps): ReactElement {
     const [cardDescription, setCardDescription] = useState(card.description)
+    const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
 
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCardDescription(event.target.value)
@@ -37,24 +48,33 @@ function EditCardModal({
     }
 
     return (
-        <Modal onClose={onClose} className={styles.modal} style={style}>
-            <Card className={styles.card}>
-                <CardLabel label={card.label} />
-                <Textarea
-                    placeholder="Enter a description for this card…"
-                    value={cardDescription}
-                    onChange={handleTextareaChange}
+        <>
+            <Modal onClose={onClose} className={styles.modal} style={style}>
+                <Card className={styles.card}>
+                    <CardLabel label={card.label} />
+                    <Textarea
+                        placeholder="Enter a description for this card…"
+                        value={cardDescription}
+                        onChange={handleTextareaChange}
+                    />
+                </Card>
+                <div className={styles.actionButtons}>
+                    <Button type="button" onClick={saveCard}>
+                        Save
+                    </Button>
+                    <Button type="button" onClick={() => setIsShowingConfirmationModal(true)}>
+                        Delete
+                    </Button>
+                </div>
+            </Modal>
+            {isShowingConfirmationModal ? (
+                <ConfirmationModal
+                    {...confirmationModalProps}
+                    onClose={() => setIsShowingConfirmationModal(false)}
+                    onContinue={deleteCard}
                 />
-            </Card>
-            <div className={styles.actionButtons}>
-                <Button type="button" onClick={saveCard}>
-                    Save
-                </Button>
-                <Button type="button" onClick={deleteCard}>
-                    Delete
-                </Button>
-            </div>
-        </Modal>
+            ) : null}
+        </>
     )
 }
 
