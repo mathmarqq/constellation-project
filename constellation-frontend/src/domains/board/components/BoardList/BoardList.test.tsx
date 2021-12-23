@@ -2,7 +2,7 @@ import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { List } from 'domains/board/models/List'
 import React from 'react'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
-import { fireEvent, render, screen } from 'utils/testUtils'
+import { fireEvent, render, screen, within } from 'utils/testUtils'
 import BoardList, { BoardListProps } from './BoardList'
 
 function renderComponent(props: BoardListProps) {
@@ -99,7 +99,7 @@ test('Given a list has more than one card When BoardList renders should show all
     expect(screen.getAllByTestId('card')).toHaveLength(3)
 })
 
-test('When user clicks in add cart should show a textarea and action buttons', () => {
+test('When user clicks on add cart should show a textarea and action buttons', () => {
     const list: List = {
         id: 1,
         index: 1,
@@ -117,7 +117,7 @@ test('When user clicks in add cart should show a textarea and action buttons', (
     expect(screen.getByText('Cancel Form')).toBeInTheDocument()
 })
 
-test('When user clicks in cancel form should hide the textarea and action buttons', () => {
+test('When user clicks on cancel form should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
         index: 1,
@@ -138,7 +138,7 @@ test('When user clicks in cancel form should hide the textarea and action button
     expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
 })
 
-test('When user clicks in save card should hide the textarea and action buttons', () => {
+test('When user clicks on save card should hide the textarea and action buttons', () => {
     const list: List = {
         id: 1,
         index: 1,
@@ -157,4 +157,44 @@ test('When user clicks in save card should hide the textarea and action buttons'
     expect(screen.queryByRole('button', { name: 'Save card' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Cancel Form' })).not.toBeInTheDocument()
     expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
+})
+
+test('When user clicks on trash icon should show the confirmation modal', () => {
+    const list: List = {
+        id: 1,
+        index: 1,
+        title: 'Title',
+        cards: [],
+    }
+
+    renderComponent({ list })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Delete List' }))
+
+    const dialog = screen.getByRole('dialog')
+    expect(within(dialog).getByText('Delete List')).toBeInTheDocument()
+    expect(
+        within(dialog).getByText('Do you really want to delete this record?')
+    ).toBeInTheDocument()
+    expect(within(dialog).getByRole('button', { name: 'Continue' })).toBeInTheDocument()
+    expect(within(dialog).getByRole('button', { name: 'Close' })).toBeInTheDocument()
+})
+
+test('When user clicks on close button inside the confirmation modal should hide the modal', () => {
+    const list: List = {
+        id: 1,
+        index: 1,
+        title: 'Title',
+        cards: [],
+    }
+
+    renderComponent({ list })
+    fireEvent.click(screen.getByRole('button', { name: 'Delete List' }))
+
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+
+    expect(screen.queryByText('Delete Card')).not.toBeInTheDocument()
+    expect(screen.queryByText('Do you really want to delete this record?')).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
 })

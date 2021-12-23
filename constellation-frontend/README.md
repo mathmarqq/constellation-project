@@ -19,8 +19,8 @@ Application steps:
 -   [x] Confirmation Modal
 -   [x] Delete card (feature)
     -   [x] Change Edit Card dialog
--   Delete column (feature)
-    -   Change Card List
+-   [x] Delete column (feature)
+    -   [x] Change Card List
 -   Add label to card (feature)
     -   Change Edit Card dialog
     -   Change Create Form

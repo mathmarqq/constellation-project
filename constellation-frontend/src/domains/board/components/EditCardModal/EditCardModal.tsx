@@ -9,13 +9,6 @@ import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import styles from './EditCardModal.module.scss'
 
-type EditCardModalProps = {
-    card: CardType
-    style?: CSSProperties
-    onSave: () => void
-    onClose: () => void
-    onDelete: () => void
-}
 const confirmationModalProps: ConfirmationModalProps = {
     title: 'Delete Card',
     description: 'Do you really want to delete this record?',
@@ -23,6 +16,14 @@ const confirmationModalProps: ConfirmationModalProps = {
     closeButtonText: 'Close',
     onContinue: () => {},
     onClose: () => {},
+}
+
+type EditCardModalProps = {
+    card: CardType
+    style?: CSSProperties
+    onSave: () => void
+    onClose: () => void
+    onDelete: () => void
 }
 
 function EditCardModal({
