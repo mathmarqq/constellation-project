@@ -11,7 +11,7 @@ export default {
     component: EditCardModal,
     decorators: [withMock],
     parameters: {
-        chromatic: { delay: 2000 },
+        chromatic: { pauseAnimationAtEnd: true },
     },
 } as Meta
 

@@ -8,7 +8,7 @@ export default {
     title: 'Components/Shared/ConfirmationModal',
     component: ConfirmationModal,
     parameters: {
-        chromatic: { delay: 2000 },
+        chromatic: { pauseAnimationAtEnd: true },
     },
 } as Meta
 
