@@ -4,7 +4,7 @@ import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import TrashIcon from 'components/Icons/TrashIcon'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
-import { createCard } from 'infra'
+import { createCard, deleteList } from 'infra'
 import styles from './BoardList.module.scss'
 import BoardListFooter from './BoardListFooter'
 import CardOrganizer from './CardOrganizer'
@@ -29,6 +29,12 @@ function BoardList({ list }: BoardListProps): ReactElement {
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewCardDescription(event.target.value)
+    }
+
+    const handleDeleteList = (): void => {
+        deleteList(list.id).then(() => {
+            setIsShowingConfirmationModal(false)
+        })
     }
 
     const saveNewCard = (): void => {
@@ -88,7 +94,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
                 <ConfirmationModal
                     {...confirmationModalProps}
                     onClose={() => setIsShowingConfirmationModal(false)}
-                    onContinue={() => setIsShowingConfirmationModal(false)}
+                    onContinue={handleDeleteList}
                 />
             ) : null}
         </>
