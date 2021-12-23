@@ -50,12 +50,13 @@ Bonus points if the following is implemented:
 Todo list:
 
 -   Make edit list accessible
--   Fix timeout to focus input
--   Cover implementionDetails about api calls in tests
+-   Fix the timeout to focus input
+-   Cover implemention details of api calls in tests
 -   Improve my theme scheme
--   Put visual regression tests in git hooks/pipleine
 -   Create tests with cypress (I did not have time)
+-   Improve mocks in storybook
 
 Instructions to run api:
 
-json-server --watch db.json
+cd constellation-api-mock
+npm start
