@@ -47,6 +47,11 @@ Bonus points if the following is implemented:
 -   App is deployed via heroku, netlify, etc.
 -   README is well written and formatted
 
+Todo list:
+
+-   Make edit list accessible
+-   Fix timeout to focus input
+
 Instructions to run api:
 
 json-server --watch db.json

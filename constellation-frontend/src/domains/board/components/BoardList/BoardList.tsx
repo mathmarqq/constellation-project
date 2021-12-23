@@ -1,10 +1,13 @@
-import React, { ReactElement, useContext, useState } from 'react'
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { List } from 'domains/board/models/List'
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import TrashIcon from 'components/Icons/TrashIcon'
 import ConfirmationModal from 'components/ConfirmationModal'
+import Input from 'components/Input'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
-import { createCard, deleteList } from 'infra'
+import { createCard, deleteList, editList } from 'infra'
 import BoardContext from 'domains/board/contexts/BoardContext'
 import LoadingContext from 'contexts/LoadingContext'
 import styles from './BoardList.module.scss'
@@ -25,11 +28,22 @@ type BoardListProps = {
 }
 
 function BoardList({ list }: BoardListProps): ReactElement {
-    const [isCreatingCard, setIsCreatingCard] = useState(false)
-    const [newCardDescription, setNewCardDescription] = useState('')
-    const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
     const { refreshBoard } = useContext(BoardContext)
     const { showLoading, closeLoading } = useContext(LoadingContext)
+
+    const [isCreatingCard, setIsCreatingCard] = useState(false)
+    const [newCardDescription, setNewCardDescription] = useState('')
+
+    const [isEditingList, setIsEditingList] = useState(false)
+    const [listTitle, setListTitle] = useState(list.title)
+
+    const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
+
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    const handleListTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setListTitle(event.target.value)
+    }
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewCardDescription(event.target.value)
@@ -58,6 +72,30 @@ function BoardList({ list }: BoardListProps): ReactElement {
         })
     }
 
+    const onUpdate = () => {
+        setIsEditingList(true)
+
+        setTimeout(() => {
+            if (inputRef.current) {
+                inputRef.current.focus()
+            }
+        }, 50)
+    }
+
+    const updateList = (): void => {
+        if (list.title !== listTitle) {
+            showLoading()
+
+            editList(list.id, { title: listTitle, index: list.index }).then(() => {
+                setIsEditingList(false)
+                refreshBoard()
+                closeLoading()
+            })
+        } else {
+            setIsEditingList(false)
+        }
+    }
+
     const cancelForm = () => {
         setNewCardDescription('')
         setIsCreatingCard(false)
@@ -73,7 +111,18 @@ function BoardList({ list }: BoardListProps): ReactElement {
                         {...provided.draggableProps}
                     >
                         <div className={styles.header} {...provided.dragHandleProps}>
-                            <h2>{list.title}</h2>
+                            {isEditingList ? (
+                                <Input
+                                    value={listTitle}
+                                    onChange={handleListTitleChange}
+                                    onBlur={updateList}
+                                    ref={inputRef}
+                                />
+                            ) : (
+                                <h2 onClick={onUpdate} className={styles.title}>
+                                    {list.title}
+                                </h2>
+                            )}
                             <button
                                 className={styles.deleteButton}
                                 type="button"
