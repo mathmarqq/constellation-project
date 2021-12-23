@@ -1,0 +1,33 @@
+.footer {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+
+    .addButton {
+        border: none;
+        opacity: 60%;
+        width: 100%;
+        text-align: start;
+        padding: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+            filter: brightness(90%);
+        }
+    }
+
+    .closeButton {
+        cursor: pointer;
+        border: none;
+        background: none;
+        width: fit-content;
+
+        .hideInformation {
+            display: none;
+        }
+    }
+
+    .saveButton {
+        margin-right: 0.5rem;
+    }
+}

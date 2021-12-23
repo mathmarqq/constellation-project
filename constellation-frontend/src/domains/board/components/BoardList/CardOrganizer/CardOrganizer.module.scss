@@ -1,0 +1,11 @@
+.card {
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.formCard {
+    padding: 0.3rem 0.5rem;
+}

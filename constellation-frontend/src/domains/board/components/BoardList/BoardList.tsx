@@ -1,15 +1,12 @@
-import React, { ReactElement, ReactNode, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { List } from 'domains/board/models/List'
-import BoardCard from 'domains/board/components/BoardCard'
-import Textarea from 'components/Textarea'
-import Card from 'components/Card'
-import Button from 'components/Button'
-import { Draggable, DraggableProvided, Droppable, DroppableProvided } from 'react-beautiful-dnd'
-import CloseIcon from 'components/Icons/CloseIcon'
+import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import TrashIcon from 'components/Icons/TrashIcon'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import styles from './BoardList.module.scss'
+import BoardListFooter from './BoardListFooter'
+import CardOrganizer from './CardOrganizer'
 
 const confirmationModalProps: ConfirmationModalProps = {
     title: 'Delete List',
@@ -26,11 +23,11 @@ type BoardListProps = {
 
 function BoardList({ list }: BoardListProps): ReactElement {
     const [isCreatingCard, setIsCreatingCard] = useState(false)
-    const [cardDescription, setCardDescription] = useState('')
+    const [newCardDescription, setNewCardDescription] = useState('')
     const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
 
-    const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setCardDescription(event.target.value)
+    const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setNewCardDescription(event.target.value)
     }
 
     const saveCard = (): void => {
@@ -38,14 +35,8 @@ function BoardList({ list }: BoardListProps): ReactElement {
     }
 
     const cancelForm = () => {
-        setCardDescription('')
+        setNewCardDescription('')
         setIsCreatingCard(false)
-    }
-
-    function renderCards(): ReactNode {
-        return list.cards.map((card) => (
-            <BoardCard key={card.id} card={card} className={styles.card} />
-        ))
     }
 
     return (
@@ -70,58 +61,18 @@ function BoardList({ list }: BoardListProps): ReactElement {
                                 <TrashIcon aria-hidden="true" />
                             </button>
                         </div>
-                        <Droppable
-                            droppableId={`${list.id}_list`}
-                            type="QUOTE"
-                            ignoreContainerClipping={false}
-                        >
-                            {(dropProvided: DroppableProvided) => (
-                                <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
-                                    {renderCards()}
-                                    {dropProvided.placeholder}
-                                    {isCreatingCard ? (
-                                        <Card className={styles.formCard}>
-                                            <Textarea
-                                                placeholder="Enter a description for this card…"
-                                                value={cardDescription}
-                                                onChange={handleTextareaChange}
-                                            />
-                                        </Card>
-                                    ) : null}
-                                </div>
-                            )}
-                        </Droppable>
-                        <div className={styles.footer}>
-                            {isCreatingCard ? (
-                                <>
-                                    <Button
-                                        type="button"
-                                        onClick={saveCard}
-                                        className={styles.saveButton}
-                                    >
-                                        Save card
-                                    </Button>
-                                    <button
-                                        className={styles.closeButton}
-                                        type="button"
-                                        title="Cancel Form"
-                                        aria-label="Cancel Form"
-                                        onClick={cancelForm}
-                                    >
-                                        <span className={styles.hideInformation}>Cancel Form</span>
-                                        <CloseIcon aria-hidden="true" />
-                                    </button>
-                                </>
-                            ) : (
-                                <button
-                                    className={styles.addButton}
-                                    type="button"
-                                    onClick={() => setIsCreatingCard(true)}
-                                >
-                                    Add a card
-                                </button>
-                            )}
-                        </div>
+                        <CardOrganizer
+                            list={list}
+                            isCreatingCard={isCreatingCard}
+                            newCardDescription={newCardDescription}
+                            onDescriptionChange={handleDescriptionChange}
+                        />
+                        <BoardListFooter
+                            isCreatingCard={isCreatingCard}
+                            addCard={() => setIsCreatingCard(true)}
+                            saveCard={saveCard}
+                            cancelForm={cancelForm}
+                        />
                     </div>
                 )}
             </Draggable>

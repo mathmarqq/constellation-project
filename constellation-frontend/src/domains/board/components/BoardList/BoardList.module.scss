@@ -7,26 +7,21 @@
     padding: 0.5rem;
     padding-bottom: 0;
 
-    .header,
-    .footer {
-        padding: 0.5rem 0;
-    }
-
-    .deleteButton,
-    .closeButton {
-        cursor: pointer;
-        border: none;
-        background: none;
-        width: fit-content;
-    }
-
-    .hideInformation {
-        display: none;
-    }
-
     .header {
+        padding: 0.5rem 0;
         display: flex;
         justify-content: space-between;
+
+        .deleteButton {
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: fit-content;
+
+            .hideInformation {
+                display: none;
+            }
+        }
     }
 
     .card {
@@ -39,27 +34,5 @@
 
     .formCard {
         padding: 0.3rem 0.5rem;
-    }
-
-    .footer {
-        display: flex;
-        align-items: center;
-
-        .addButton {
-            border: none;
-            opacity: 60%;
-            width: 100%;
-            text-align: start;
-            padding: 0.5rem;
-            cursor: pointer;
-
-            &:hover {
-                filter: brightness(90%);
-            }
-        }
-
-        .saveButton {
-            margin-right: 0.5rem;
-        }
     }
 }
