@@ -1,7 +1,10 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import React from 'react'
-import { fireEvent, render, screen } from 'utils/testUtils'
+import { act, fireEvent, render, screen, waitFor } from 'utils/testUtils'
+import { editCard } from 'infra'
 import EditCardModal, { EditCardModalProps } from './EditCardModal'
+
+jest.mock('infra')
 
 function setup() {
     const onSaveSpy = jest.fn()
@@ -45,14 +48,21 @@ test('When EditCardModal renders should show the label', () => {
     expect(screen.getByTitle('Low Criticity')).toBeInTheDocument()
 })
 
-test('When user clicks on save button should call onSave callback', () => {
+test('When user clicks on save button should call onSave callback', async () => {
+    const mockedEditCard = editCard as jest.Mock
+    mockedEditCard.mockResolvedValue(null)
+
     const { modalProps, onSaveSpy } = setup()
 
     render(<EditCardModal {...modalProps} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    })
 
-    expect(onSaveSpy).toBeCalledTimes(1)
+    await waitFor(() => {
+        expect(onSaveSpy).toBeCalledTimes(1)
+    })
 })
 
 test('When user clicks on delete button should show the confirmation modal', () => {

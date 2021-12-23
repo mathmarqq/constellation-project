@@ -7,6 +7,7 @@ import CardLabel from 'domains/board/components/CardLabel'
 import { Card as CardType } from 'domains/board/models/Card'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
+import { editCard } from 'infra'
 import styles from './EditCardModal.module.scss'
 
 const confirmationModalProps: ConfirmationModalProps = {
@@ -41,7 +42,14 @@ function EditCardModal({
     }
 
     const saveCard = () => {
-        onSave()
+        editCard(card.id, {
+            index: card.index,
+            description: cardDescription,
+            label: card.label,
+            listId: card.listId,
+        }).then(() => {
+            onSave()
+        })
     }
 
     const deleteCard = () => {

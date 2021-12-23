@@ -2,8 +2,11 @@ import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { Card } from 'domains/board/models/Card'
 import React from 'react'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
-import { fireEvent, render, screen, within } from 'utils/testUtils'
+import { act, fireEvent, render, screen, waitFor, within } from 'utils/testUtils'
+import { editCard } from 'infra'
 import BoardCard, { BoardCardProps } from './BoardCard'
+
+jest.mock('infra')
 
 function renderComponent(props: BoardCardProps) {
     render(
@@ -90,7 +93,10 @@ test('When user clicks on editIcon should show the editModal with correct values
     expect(within(dialog).getByTitle('Low Criticity')).toBeInTheDocument()
 })
 
-test('When user clicks on save button should hide modal', () => {
+test('When user clicks on save button should hide modal', async () => {
+    const mockedEditCard = editCard as jest.Mock
+    mockedEditCard.mockResolvedValue(null)
+
     const card: Card = {
         id: 1,
         index: 1,
@@ -102,9 +108,13 @@ test('When user clicks on save button should hide modal', () => {
     renderComponent({ card })
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Save' }))
+    })
 
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
 })
 
 test(`Given user is delleting a card When user clicks on continue 
