@@ -2,8 +2,11 @@ import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { List } from 'domains/board/models/List'
 import React from 'react'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
-import { fireEvent, render, screen, within } from 'utils/testUtils'
+import { act, fireEvent, render, screen, waitFor, within } from 'utils/testUtils'
+import { createCard } from 'infra'
 import BoardList, { BoardListProps } from './BoardList'
+
+jest.mock('infra')
 
 function renderComponent(props: BoardListProps) {
     render(
@@ -56,6 +59,7 @@ test('Given a list has a card When BoardList renders should show a card with cor
                 index: 1,
                 description: 'description',
                 label: CriticityLevel.LOW,
+                listId: 1,
             },
         ],
     }
@@ -78,18 +82,21 @@ test('Given a list has more than one card When BoardList renders should show all
                 index: 1,
                 description: 'description',
                 label: CriticityLevel.LOW,
+                listId: 1,
             },
             {
                 id: 2,
                 index: 2,
                 description: 'description 2',
                 label: CriticityLevel.LOW,
+                listId: 1,
             },
             {
                 id: 3,
                 index: 3,
                 description: 'description 3',
                 label: CriticityLevel.LOW,
+                listId: 1,
             },
         ],
     }
@@ -138,7 +145,10 @@ test('When user clicks on cancel form should hide the textarea and action button
     expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
 })
 
-test('When user clicks on save card should hide the textarea and action buttons', () => {
+test('When user clicks on save card should hide the textarea and action buttons', async () => {
+    const mockedCreateCard = createCard as jest.Mock
+    mockedCreateCard.mockResolvedValue(null)
+
     const list: List = {
         id: 1,
         index: 1,
@@ -147,16 +157,20 @@ test('When user clicks on save card should hide the textarea and action buttons'
     }
 
     renderComponent({ list })
-
     fireEvent.click(screen.getByRole('button', { name: 'Add a card' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Save card' }))
 
-    expect(
-        screen.queryByPlaceholderText('Enter a description for this card…')
-    ).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Save card' })).not.toBeInTheDocument()
-    expect(screen.queryByRole('button', { name: 'Cancel Form' })).not.toBeInTheDocument()
-    expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Save card' }))
+    })
+
+    await waitFor(() => {
+        expect(
+            screen.queryByPlaceholderText('Enter a description for this card…')
+        ).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Save card' })).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Cancel Form' })).not.toBeInTheDocument()
+        expect(screen.queryByText('Cancel Form')).not.toBeInTheDocument()
+    })
 })
 
 test('When user clicks on trash icon should show the confirmation modal', () => {

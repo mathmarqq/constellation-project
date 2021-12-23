@@ -33,5 +33,6 @@ Main.args = {
         index: 1,
         description: 'This is a Todo list with items that can be marked off',
         label: CriticityLevel.LOW,
+        listId: 1,
     },
 }

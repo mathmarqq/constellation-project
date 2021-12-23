@@ -6,21 +6,21 @@ import styles from './BoardListFooter.module.scss'
 type BoardListFooterProps = {
     isCreatingCard: boolean
     addCard: () => void
-    saveCard: () => void
+    saveNewCard: () => void
     cancelForm: () => void
 }
 
 function BoardListFooter({
     isCreatingCard,
     addCard,
-    saveCard,
+    saveNewCard,
     cancelForm,
 }: BoardListFooterProps): ReactElement {
     return (
         <div className={styles.footer}>
             {isCreatingCard ? (
                 <>
-                    <Button type="button" onClick={saveCard} className={styles.saveButton}>
+                    <Button type="button" onClick={saveNewCard} className={styles.saveButton}>
                         Save card
                     </Button>
                     <button

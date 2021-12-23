@@ -14,6 +14,7 @@ function setup() {
             index: 1,
             description: 'description',
             label: CriticityLevel.LOW,
+            listId: 1,
         },
         onSave: onSaveSpy,
         onDelete: onDeleteSpy,

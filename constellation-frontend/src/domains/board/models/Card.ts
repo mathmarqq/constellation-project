@@ -5,6 +5,7 @@ type Card = {
     index: number
     description: string
     label?: CriticityLevel
+    listId: number
 }
 
 export type { Card }

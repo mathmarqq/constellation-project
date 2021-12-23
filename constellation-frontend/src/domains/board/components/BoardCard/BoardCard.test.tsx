@@ -24,6 +24,7 @@ test('When BoardCard renders should show card description', () => {
         id: 1,
         index: 1,
         description: 'description',
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -36,6 +37,7 @@ test('Given card without a label When BoardCard renders should does not show car
         id: 1,
         index: 1,
         description: 'description',
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -56,6 +58,7 @@ test('Given card with a label When BoardCard renders should have label descripti
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -70,6 +73,7 @@ test('When user clicks on editIcon should show the editModal with correct values
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -92,6 +96,7 @@ test('When user clicks on save button should hide modal', () => {
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -109,6 +114,7 @@ test(`Given user is delleting a card When user clicks on continue
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -126,6 +132,7 @@ test('When user clicks outside of modal should hide modal', () => {
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })
@@ -142,6 +149,7 @@ test('When user press Esc should hide modal', () => {
         index: 1,
         description: 'description',
         label: CriticityLevel.LOW,
+        listId: 1,
     }
 
     renderComponent({ card })

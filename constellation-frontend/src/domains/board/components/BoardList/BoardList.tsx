@@ -4,6 +4,7 @@ import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import TrashIcon from 'components/Icons/TrashIcon'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
+import { createCard } from 'infra'
 import styles from './BoardList.module.scss'
 import BoardListFooter from './BoardListFooter'
 import CardOrganizer from './CardOrganizer'
@@ -30,8 +31,15 @@ function BoardList({ list }: BoardListProps): ReactElement {
         setNewCardDescription(event.target.value)
     }
 
-    const saveCard = (): void => {
-        setIsCreatingCard(false)
+    const saveNewCard = (): void => {
+        createCard({
+            description: newCardDescription,
+            index: list.cards.length,
+            listId: list.id,
+        }).then(() => {
+            setNewCardDescription('')
+            setIsCreatingCard(false)
+        })
     }
 
     const cancelForm = () => {
@@ -70,7 +78,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
                         <BoardListFooter
                             isCreatingCard={isCreatingCard}
                             addCard={() => setIsCreatingCard(true)}
-                            saveCard={saveCard}
+                            saveNewCard={saveNewCard}
                             cancelForm={cancelForm}
                         />
                     </div>
