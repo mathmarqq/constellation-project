@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import BoardList from 'domains/board/components/BoardList'
 import {
     DragDropContext,
@@ -7,30 +7,25 @@ import {
     DroppableProvided,
     DropResult,
 } from 'react-beautiful-dnd'
-import { editCard, editList, getLists } from 'infra'
-import { List } from 'domains/board/models/List'
+import { editCard, editList } from 'infra'
+import BoardContext from 'domains/board/contexts/BoardContext'
 import styles from './Board.module.scss'
 
 function Board(): ReactElement {
-    const [lists, setLists] = useState<List[]>([])
+    const { lists, refreshBoard } = useContext(BoardContext)
 
     useEffect(() => {
-        getLists().then((fetchedLists: List[]) => {
-            setLists(fetchedLists)
-        })
-    }, [setLists])
+        refreshBoard()
+    }, [refreshBoard])
 
     function changeListIndex(source: DraggableLocation, destination: DraggableLocation) {
         const sourceIndex = source.index
         const destinationIndex = destination.index
-
         const sourceList = lists.filter((list) => list.index === sourceIndex)[0]
-        const destinationList = lists.filter((list) => list.index === destinationIndex)[0]
 
-        Promise.all([
-            editList(sourceList.id, { title: sourceList.title, index: destinationIndex }),
-            editList(destinationList.id, { title: destinationList.title, index: sourceIndex }),
-        ]).then(() => {})
+        editList(sourceList.id, { title: sourceList.title, index: destinationIndex }).then(() => {
+            refreshBoard()
+        })
     }
 
     function changeCardIndex(source: DraggableLocation, destination: DraggableLocation) {
@@ -43,7 +38,9 @@ function Board(): ReactElement {
             description: sourceCard.description,
             label: sourceCard.label,
             listId: sourceCard.listId,
-        }).then(() => {})
+        }).then(() => {
+            refreshBoard()
+        })
     }
 
     const onDragEnd = (result: DropResult) => {

@@ -1,10 +1,11 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { List } from 'domains/board/models/List'
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import TrashIcon from 'components/Icons/TrashIcon'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import { createCard, deleteList } from 'infra'
+import BoardContext from 'domains/board/contexts/BoardContext'
 import styles from './BoardList.module.scss'
 import BoardListFooter from './BoardListFooter'
 import CardOrganizer from './CardOrganizer'
@@ -26,6 +27,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
     const [isCreatingCard, setIsCreatingCard] = useState(false)
     const [newCardDescription, setNewCardDescription] = useState('')
     const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
+    const { refreshBoard } = useContext(BoardContext)
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewCardDescription(event.target.value)
@@ -34,6 +36,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
     const handleDeleteList = (): void => {
         deleteList(list.id).then(() => {
             setIsShowingConfirmationModal(false)
+            refreshBoard()
         })
     }
 
@@ -45,6 +48,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
         }).then(() => {
             setNewCardDescription('')
             setIsCreatingCard(false)
+            refreshBoard()
         })
     }
 
@@ -62,8 +66,8 @@ function BoardList({ list }: BoardListProps): ReactElement {
                         className={styles.list}
                         {...provided.draggableProps}
                     >
-                        <div className={styles.header}>
-                            <h2 {...provided.dragHandleProps}>{list.title}</h2>
+                        <div className={styles.header} {...provided.dragHandleProps}>
+                            <h2>{list.title}</h2>
                             <button
                                 className={styles.deleteButton}
                                 type="button"

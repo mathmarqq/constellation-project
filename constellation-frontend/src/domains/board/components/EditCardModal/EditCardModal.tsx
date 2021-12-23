@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement, useState } from 'react'
+import React, { CSSProperties, ReactElement, useContext, useState } from 'react'
 import Modal from 'components/Modal'
 import Card from 'components/Card'
 import Textarea from 'components/Textarea'
@@ -8,6 +8,7 @@ import { Card as CardType } from 'domains/board/models/Card'
 import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import { editCard, deleteCard } from 'infra'
+import BoardContext from 'domains/board/contexts/BoardContext'
 import styles from './EditCardModal.module.scss'
 
 const confirmationModalProps: ConfirmationModalProps = {
@@ -36,6 +37,7 @@ function EditCardModal({
 }: EditCardModalProps): ReactElement {
     const [cardDescription, setCardDescription] = useState(card.description)
     const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
+    const { refreshBoard } = useContext(BoardContext)
 
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCardDescription(event.target.value)
@@ -48,12 +50,14 @@ function EditCardModal({
             label: card.label,
             listId: card.listId,
         }).then(() => {
+            refreshBoard()
             onSave()
         })
     }
 
     const handleDeleteCard = () => {
         deleteCard(card.id).then(() => {
+            refreshBoard()
             onDelete()
         })
     }

@@ -1,3 +1,4 @@
+import BoardProvider from 'domains/board/providers/BoardProvider'
 import React from 'react'
 import styles from 'styles/index.module.scss'
 import Routes from './Routes'
@@ -5,7 +6,9 @@ import Routes from './Routes'
 function App() {
     return (
         <div className={styles.defaultTheme}>
-            <Routes />
+            <BoardProvider>
+                <Routes />
+            </BoardProvider>
         </div>
     )
 }
