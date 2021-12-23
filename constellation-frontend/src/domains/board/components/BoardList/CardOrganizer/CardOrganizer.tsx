@@ -20,9 +20,9 @@ function CardOrganizer({
     onDescriptionChange,
 }: CardOrganizerProps): ReactElement {
     function renderCards(): ReactNode {
-        return list.cards.map((card) => (
-            <BoardCard key={card.id} card={card} className={styles.card} />
-        ))
+        return list.cards
+            .sort((a, b) => a.index - b.index)
+            .map((card) => <BoardCard key={card.id} card={card} className={styles.card} />)
     }
 
     return (
