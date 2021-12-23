@@ -9,10 +9,12 @@ import {
 } from 'react-beautiful-dnd'
 import { editCard, editList } from 'infra'
 import BoardContext from 'domains/board/contexts/BoardContext'
+import LoadingContext from 'contexts/LoadingContext'
 import styles from './Board.module.scss'
 
 function Board(): ReactElement {
     const { lists, refreshBoard } = useContext(BoardContext)
+    const { showLoading, closeLoading } = useContext(LoadingContext)
 
     useEffect(() => {
         refreshBoard()
@@ -23,8 +25,11 @@ function Board(): ReactElement {
         const destinationIndex = destination.index
         const sourceList = lists.filter((list) => list.index === sourceIndex)[0]
 
+        showLoading()
+
         editList(sourceList.id, { title: sourceList.title, index: destinationIndex }).then(() => {
             refreshBoard()
+            closeLoading()
         })
     }
 
@@ -33,6 +38,8 @@ function Board(): ReactElement {
         const sourceList = lists.filter((list) => list.id === sourceListId)[0]
         const sourceCard = sourceList.cards.filter((card) => card.index === source.index)[0]
 
+        showLoading()
+
         editCard(sourceCard.id, {
             index: destination.index,
             description: sourceCard.description,
@@ -40,6 +47,7 @@ function Board(): ReactElement {
             listId: sourceCard.listId,
         }).then(() => {
             refreshBoard()
+            closeLoading()
         })
     }
 

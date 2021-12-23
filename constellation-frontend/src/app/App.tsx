@@ -1,14 +1,16 @@
-import BoardProvider from 'domains/board/providers/BoardProvider'
 import React from 'react'
 import styles from 'styles/index.module.scss'
+import GeneralLoading from 'components/GeneralLoading/GeneralLoading'
+import Providers from './Providers'
 import Routes from './Routes'
 
 function App() {
     return (
         <div className={styles.defaultTheme}>
-            <BoardProvider>
+            <Providers>
                 <Routes />
-            </BoardProvider>
+                <GeneralLoading />
+            </Providers>
         </div>
     )
 }

@@ -9,6 +9,7 @@ import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import { editCard, deleteCard } from 'infra'
 import BoardContext from 'domains/board/contexts/BoardContext'
+import LoadingContext from 'contexts/LoadingContext'
 import styles from './EditCardModal.module.scss'
 
 const confirmationModalProps: ConfirmationModalProps = {
@@ -38,25 +39,32 @@ function EditCardModal({
     const [cardDescription, setCardDescription] = useState(card.description)
     const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
     const { refreshBoard } = useContext(BoardContext)
+    const { showLoading, closeLoading } = useContext(LoadingContext)
 
     const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCardDescription(event.target.value)
     }
 
     const saveCard = () => {
+        showLoading()
+
         editCard(card.id, {
             index: card.index,
             description: cardDescription,
             label: card.label,
             listId: card.listId,
         }).then(() => {
+            closeLoading()
             refreshBoard()
             onSave()
         })
     }
 
     const handleDeleteCard = () => {
+        showLoading()
+
         deleteCard(card.id).then(() => {
+            closeLoading()
             refreshBoard()
             onDelete()
         })

@@ -6,6 +6,7 @@ import ConfirmationModal from 'components/ConfirmationModal'
 import { ConfirmationModalProps } from 'components/ConfirmationModal/ConfirmationModal'
 import { createCard, deleteList } from 'infra'
 import BoardContext from 'domains/board/contexts/BoardContext'
+import LoadingContext from 'contexts/LoadingContext'
 import styles from './BoardList.module.scss'
 import BoardListFooter from './BoardListFooter'
 import CardOrganizer from './CardOrganizer'
@@ -28,19 +29,23 @@ function BoardList({ list }: BoardListProps): ReactElement {
     const [newCardDescription, setNewCardDescription] = useState('')
     const [isShowingConfirmationModal, setIsShowingConfirmationModal] = useState(false)
     const { refreshBoard } = useContext(BoardContext)
+    const { showLoading, closeLoading } = useContext(LoadingContext)
 
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setNewCardDescription(event.target.value)
     }
 
     const handleDeleteList = (): void => {
+        showLoading()
         deleteList(list.id).then(() => {
             setIsShowingConfirmationModal(false)
+            closeLoading()
             refreshBoard()
         })
     }
 
     const saveNewCard = (): void => {
+        showLoading()
         createCard({
             description: newCardDescription,
             index: list.cards.length,
@@ -48,6 +53,7 @@ function BoardList({ list }: BoardListProps): ReactElement {
         }).then(() => {
             setNewCardDescription('')
             setIsCreatingCard(false)
+            closeLoading()
             refreshBoard()
         })
     }
