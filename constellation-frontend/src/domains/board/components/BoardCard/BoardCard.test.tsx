@@ -3,7 +3,7 @@ import { Card } from 'domains/board/models/Card'
 import React from 'react'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import { act, fireEvent, render, screen, waitFor, within } from 'utils/testUtils'
-import { editCard } from 'infra'
+import { deleteCard, editCard } from 'infra'
 import BoardCard, { BoardCardProps } from './BoardCard'
 
 jest.mock('infra')
@@ -118,7 +118,10 @@ test('When user clicks on save button should hide modal', async () => {
 })
 
 test(`Given user is delleting a card When user clicks on continue 
-    button inside confirmation modal should close modal`, () => {
+    button inside confirmation modal should close modal`, async () => {
+    const mockedDeleteCard = deleteCard as jest.Mock
+    mockedDeleteCard.mockResolvedValue(null)
+
     const card: Card = {
         id: 1,
         index: 1,
@@ -131,9 +134,13 @@ test(`Given user is delleting a card When user clicks on continue
     fireEvent.click(screen.getByRole('button', { name: 'Edit Card' }))
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    })
 
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    await waitFor(() => {
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
 })
 
 test('When user clicks outside of modal should hide modal', () => {

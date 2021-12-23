@@ -1,7 +1,7 @@
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from 'utils/testUtils'
-import { editCard } from 'infra'
+import { deleteCard, editCard } from 'infra'
 import EditCardModal, { EditCardModalProps } from './EditCardModal'
 
 jest.mock('infra')
@@ -78,15 +78,23 @@ test('When user clicks on delete button should show the confirmation modal', () 
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
 })
 
-test('When user clicks on continue button inside the confirmation modal should call onDelete callback', () => {
+test('When user clicks on continue button inside the confirmation modal should call onDelete callback', async () => {
+    const mockedDeleteCard = deleteCard as jest.Mock
+    mockedDeleteCard.mockResolvedValue(null)
+
     const { modalProps, onDeleteSpy } = setup()
 
     render(<EditCardModal {...modalProps} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
 
-    expect(onDeleteSpy).toBeCalledTimes(1)
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    })
+
+    await waitFor(() => {
+        expect(onDeleteSpy).toBeCalledTimes(1)
+    })
 })
 
 test('When user clicks on close button inside the confirmation modal should hide the modal', () => {
