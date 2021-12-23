@@ -52,6 +52,7 @@ Todo list:
 -   Make edit list accessible
 -   Fix timeout to focus input
 -   Cover implementionDetails about api calls in tests
+-   Improve my theme scheme
 
 Instructions to run api:
 

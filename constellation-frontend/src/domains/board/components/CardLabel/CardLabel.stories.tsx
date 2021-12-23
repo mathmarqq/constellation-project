@@ -12,7 +12,17 @@ export default {
 
 const Template: Story<CardLabelProps> = (args: CardLabelProps) => <CardLabel {...args} />
 
-export const Main = Template.bind({})
-Main.args = {
+export const Low = Template.bind({})
+Low.args = {
+    label: CriticityLevel.LOW,
+}
+
+export const Medium = Template.bind({})
+Medium.args = {
     label: CriticityLevel.MEDIUM,
+}
+
+export const High = Template.bind({})
+High.args = {
+    label: CriticityLevel.HIGH,
 }

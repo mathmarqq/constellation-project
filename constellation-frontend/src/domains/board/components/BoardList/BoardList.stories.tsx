@@ -4,12 +4,14 @@ import { Meta } from '@storybook/react/types-6-0'
 
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
+import withMock from 'storybook-addon-mock'
 import BoardList, { BoardListProps } from './BoardList'
 
 export default {
     title: 'Components/Board/List',
     component: BoardList,
     decorators: [
+        withMock,
         (StoryComponent) => (
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="board" type="LIST" ignoreContainerClipping={false}>
@@ -62,4 +64,34 @@ Main.args = {
             },
         ],
     },
+}
+
+Main.parameters = {
+    mockData: [
+        {
+            url: 'http://localhost:3000/cards/1',
+            method: 'PUT',
+            status: 200,
+        },
+        {
+            url: 'http://localhost:3000/cards',
+            method: 'POST',
+            status: 200,
+        },
+        {
+            url: 'http://localhost:3000/cards/1',
+            method: 'DELETE',
+            status: 200,
+        },
+        {
+            url: 'http://localhost:3000/lists/1',
+            method: 'PUT',
+            status: 200,
+        },
+        {
+            url: 'http://localhost:3000/lists/1',
+            method: 'DELETE',
+            status: 200,
+        },
+    ],
 }

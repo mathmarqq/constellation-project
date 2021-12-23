@@ -64,6 +64,7 @@ function EditCardModal({
         showLoading()
 
         deleteCard(card.id).then(() => {
+            setIsShowingConfirmationModal(false)
             closeLoading()
             refreshBoard()
             onDelete()

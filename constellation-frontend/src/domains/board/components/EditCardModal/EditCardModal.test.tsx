@@ -78,6 +78,30 @@ test('When user clicks on delete button should show the confirmation modal', () 
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument()
 })
 
+test('When user clicks on continue button inside the confirmation modal should hide the confirmation modal', async () => {
+    const mockedDeleteCard = deleteCard as jest.Mock
+    mockedDeleteCard.mockResolvedValue(null)
+
+    const { modalProps } = setup()
+
+    render(<EditCardModal {...modalProps} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
+
+    act(() => {
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+    })
+
+    await waitFor(() => {
+        expect(screen.queryByText('Delete Card')).not.toBeInTheDocument()
+        expect(
+            screen.queryByText('Do you really want to delete this record?')
+        ).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Close' })).not.toBeInTheDocument()
+    })
+})
+
 test('When user clicks on continue button inside the confirmation modal should call onDelete callback', async () => {
     const mockedDeleteCard = deleteCard as jest.Mock
     mockedDeleteCard.mockResolvedValue(null)
