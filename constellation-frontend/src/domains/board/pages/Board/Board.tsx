@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { Board as BoardType } from 'domains/board/models/Board'
 import { CriticityLevel } from 'domains/board/enums/CriticityLevel'
 import BoardList from 'domains/board/components/BoardList'
-import { DragDropContext, Droppable, DroppableProvided, DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, DroppableProvided } from 'react-beautiful-dnd'
 import styles from './Board.module.scss'
 
 const boardFromBackend: BoardType = {
@@ -119,11 +119,10 @@ const boardFromBackend: BoardType = {
 }
 
 function Board(): ReactElement {
-    const [board, setBoard] = useState(boardFromBackend)
+    const [board] = useState(boardFromBackend)
 
-    const onDragEnd = (result: DropResult) => {
+    const onDragEnd = () => {
         // const { type, destination, source, draggableId } = result
-
         // if (destination) {
         //     if (result.type === 'COLUMN') {
         //         const [destinationListId] = destination.droppableId.split('_')
@@ -131,12 +130,11 @@ function Board(): ReactElement {
         //     } else {
         //         const [sourceListId] = source.droppableId.split('_')
         //         const [destinationListId] = destination.droppableId.split('_')
-
         //         const sourceList = board.lists.filter((list) => ( list.id === parseInt(sourceListId, 10) ))
         //         sourceList[0].cards.filter((card) => ( card.id === parseInt(draggableId, 10) ))
         //     }
         // }
-        console.log(result)
+        // console.log(result)
     }
 
     return (

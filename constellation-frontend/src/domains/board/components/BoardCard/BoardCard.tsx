@@ -1,7 +1,7 @@
 import Card from 'components/Card'
 import PenIcon from 'components/Icons/PenIcon'
 import { Card as CardType } from 'domains/board/models/Card'
-import React, { CSSProperties, ReactElement, useRef, useState } from 'react'
+import React, { CSSProperties, ReactElement, useState } from 'react'
 import CardLabel from 'domains/board/components/CardLabel'
 import { Draggable, DraggableProvided } from 'react-beautiful-dnd'
 import styles from './BoardCard.module.scss'

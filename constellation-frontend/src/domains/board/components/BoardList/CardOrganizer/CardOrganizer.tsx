@@ -28,7 +28,11 @@ function CardOrganizer({
     return (
         <Droppable droppableId={`${list.id}_list`} type="QUOTE" ignoreContainerClipping={false}>
             {(dropProvided: DroppableProvided) => (
-                <div {...dropProvided.droppableProps} ref={dropProvided.innerRef}>
+                <div
+                    {...dropProvided.droppableProps}
+                    ref={dropProvided.innerRef}
+                    className={styles.cardListWrapper}
+                >
                     {renderCards()}
                     {dropProvided.placeholder}
                     {isCreatingCard ? (

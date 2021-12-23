@@ -1,8 +1,13 @@
-.card {
-    margin-bottom: 0.5rem;
+.cardListWrapper {
+    overflow-y: auto;
+    max-height: 80vh;
 
-    &:last-child {
-        margin-bottom: 0;
+    .card {
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 

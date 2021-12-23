@@ -46,3 +46,7 @@ Bonus points if the following is implemented:
 -   Code has formatting and/or Linting configuration
 -   App is deployed via heroku, netlify, etc.
 -   README is well written and formatted
+
+Instructions to run api:
+
+json-server --watch db.json
