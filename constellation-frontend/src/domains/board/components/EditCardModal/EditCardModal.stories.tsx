@@ -10,6 +10,9 @@ export default {
     title: 'Components/Board/EditCardModal',
     component: EditCardModal,
     decorators: [withMock],
+    parameters: {
+        chromatic: { delay: 300 },
+    },
 } as Meta
 
 const Template: Story<EditCardModalProps> = (args: EditCardModalProps) => (

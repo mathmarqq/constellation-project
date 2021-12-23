@@ -7,6 +7,9 @@ import ConfirmationModal, { ConfirmationModalProps } from './ConfirmationModal'
 export default {
     title: 'Components/Shared/ConfirmationModal',
     component: ConfirmationModal,
+    parameters: {
+        chromatic: { delay: 300 },
+    },
 } as Meta
 
 const Template: Story<ConfirmationModalProps> = (args: ConfirmationModalProps) => (
